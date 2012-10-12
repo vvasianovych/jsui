@@ -1,0 +1,6 @@
+.frameTitlebarActive {
+	height: 20px;
+	position: relative;	
+	top: 2px;
+	left: 2px;
+}

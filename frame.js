@@ -3,20 +3,17 @@ function createBox(width, height) {
 	box.setAttribute('id', 'frame');
 	box.style.width = ''+width+'px';
 	box.style.height = ''+height+'px';
-	box.style.background = colors.lightGray;
-	box.style.border ='1px solid black';
+	box.style.background = colors.frameBox;
+	box.style.border ='1px solid 11DDFF';
 	return box;
 }
 
 function createTitleBar(box, width){
 	var menubar = document.createElement('div');
 	menubar.style.width = (width -4)+'px';
-	menubar.style.height = '20px';
-	menubar.style.background = colors.darkSnow;
-	menubar.setAttribute('id', 'menubar');
-	menubar.style.position = 'relative';	
-	menubar.style.top = '2px';
-	menubar.style.left = '2px';
+	menubar.style
+	menubar.style.background = colors.frameTitleBar;
+	menubar.setAttribute('class', 'frameTitlebarActive');
 	menubar.ondragstart = function(){return false;};
 	return menubar;
 }
@@ -25,7 +22,7 @@ function createRootPanel(box, width, height){
 	var rootPanel = document.createElement('div');
 	rootPanel.style.width = (width-4)+'px';
 	rootPanel.style.height = (height - 26)+'px';
-	rootPanel.style.background = colors.ligtSnow;
+	rootPanel.style.background = colors.frameRootPane;
 	rootPanel.setAttribute('id', 'menubar');
 	rootPanel.style.position = 'relative';	
 	rootPanel.style.top = '4px';
