@@ -8,7 +8,8 @@ desktop.addFrame = function(frame){
 }
 desktop.activateFrame = function(frame){
 	length = desktop.frames.length;
-	index = desktop.frames.indexOf(frame);
+	index = desktop.frames.indexOf(frame);	
+	//frame.titleBar.setAttribute('class', 'frameTitlebarInactive');
 	for(var i = index; i < length-1; i++){
 		var currFrame = desktop.frames[i+1];
 		desktop.frames[i] = currFrame;

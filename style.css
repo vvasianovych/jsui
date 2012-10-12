@@ -4,3 +4,13 @@
 	top: 2px;
 	left: 2px;
 }
+.frameTitlebarInactive {
+	height: 40px;
+	position: relative;	
+	top: 2px;
+	left: 2px;
+}
+
+.frame {
+	border: 1px solid 11DDFF;
+}

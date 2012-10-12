@@ -19,6 +19,6 @@ colors.darkGoldenrod = '#BDB76B';
 colors.goldenrod = '#EEE8AA';
 colors.lightGoldenrod = '#FAFAD2';
 
-colors.frameBox = ' eeeeee';
-colors.frameRootPane = 'ffffdd';
-colors.frameTitleBar = '3399ff';
+colors.frameBox = '#eeeeee';
+colors.frameRootPane = '#ffffdd';
+colors.frameTitleBar = '#3399ff';
