@@ -1,0 +1,59 @@
+<html>
+<head>
+<script language="javascript">
+colors = new Object();
+colors.gray = '#EEE9E9';
+
+function refresh() {
+	frame.setAttribute('id', 'frame');
+	frame.style.width = '30%';
+	frame.style.height = '20%';
+	frame.style.background='green';
+	frame.style.position = 'absolute';
+	frame.style.left = '10px';
+	frame.style.top = '10px';
+	frame.style.border ='1px solid black';
+	
+	menubar.style.width = ''+(menubar.parentNode.offsetWidth-4)+'px';
+	menubar.style.height = '20px';
+	menubar.style.position = 'absolute';
+	menubar.style.left = '1px';
+	menubar.style.top = '1px';
+	menubar.style.background = colors.gray;
+	menubar.setAttribute('id', 'menubar');	
+	
+}
+
+function up(event) {
+	window.removeEventListener('mousemove', objectMove, true);
+}
+
+function down(event){
+  	window.addEventListener('mousemove', objectMove, true);
+}
+
+function objectMove(event) {
+	frame.style.position = 'absolute';
+	frame.style.top = ''+event.clientY+'px';
+	frame.style.left = ''+event.clientX+'px';
+}
+
+function onLoad() {
+	frame = document.createElement('div');
+	menubar = document.createElement('div');
+	document.body.appendChild(frame);
+	frame.appendChild(menubar);
+	refresh();
+	menubar.addEventListener('mousedown', down, false);
+	window.addEventListener('mouseup', up, false);	
+}
+
+window.onload = onLoad;
+window.onresize = refresh;
+</script>
+</head>
+<body>
+<div id='out' style='position: absolute; top: 300px; left:200px'/>
+<div id='out1' style='position: absolute; top: 350px; left:250px'/>
+</body>
+</html>

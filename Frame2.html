@@ -1,0 +1,128 @@
+<html>
+<head>
+<script language="javascript">
+colors = new Object();
+colors.darkGreen = '#008B00';
+colors.green = '#32CD32';
+colors.lightGreen = '#98FB98';
+
+colors.darkSnow = '#EECFA1';
+colors.snow = '#EEE9E9';
+colors.ligtSnow = '#FFFAFA';
+
+colors.darkGray = '#828282';
+colors.gray = '#B5B5B5';
+colors.lightGray = '#E8E8E8';
+
+colors.darkYellow = '#DAA520';
+colors.yellow = '#FFFF10';
+colors.lightYellow = '#FFFFE0';
+
+colors.darkGoldenrod = '#BDB76B';
+colors.goldenrod = '#EEE8AA';
+colors.lightGoldenrod = '#FAFAD2';
+
+var dragContext = new Object();
+dragContext.drag = false;
+dragXPosition = 0;
+dragYPosition = 0;
+
+function createBox(width, height) {
+	var box = document.createElement('div');
+	box.setAttribute('id', 'frame');
+	box.style.width = ''+width+'px';
+	box.style.height = ''+height+'px';
+	box.style.background = colors.lightGray;
+	box.style.border ='1px solid black';
+	return box;
+}
+
+function createTitleBar(box, width){
+	var menubar = document.createElement('div');
+	menubar.style.width = (width -4)+'px';
+	menubar.style.height = '20px';
+	menubar.style.background = colors.darkSnow;
+	menubar.setAttribute('id', 'menubar');
+	menubar.style.position = 'relative';	
+	menubar.style.top = '2px';
+	menubar.style.left = '2px';
+	menubar.ondragstart = function(){return false;};
+	return menubar;
+}
+
+function createRootPanel(box, width, height){
+	var rootPanel = document.createElement('div');
+	rootPanel.style.width = (width-4)+'px';
+	rootPanel.style.height = (height - 26)+'px';
+	rootPanel.style.background = colors.ligtSnow;
+	rootPanel.setAttribute('id', 'menubar');
+	rootPanel.style.position = 'relative';	
+	rootPanel.style.top = '4px';
+	rootPanel.style.left = '2px';
+	return rootPanel;
+}
+
+function frameMouseDown(event){
+	document.getElementById('message').innerHTML='pressed';
+	dragContext.startMouseXPosition = event.clientX;
+	dragContext.startMouseYPosition = event.clientY;
+	dragContext.startFrameXPosition = event.currentTarget.parentElement.offsetLeft;
+	dragContext.startFrameYPosition = event.currentTarget.parentElement.offsetTop;
+	dragContext.drag = true;
+	dragContext.targetFrame = event.currentTarget.parentElement;
+	window.addEventListener('mousemove', mouseMoving, false);
+	dragContext.targetFrame.style.zIndex = 1;
+}
+
+function mouseMoving(event) {
+	document.getElementById('message').innerHTML='x:'+event.clientX+', y:'+event.clientY;
+	newXOffset = event.clientX - dragContext.startMouseXPosition;
+	newX = newXOffset + dragContext.startFrameXPosition;
+	newYOffset = event.clientY - dragContext.startMouseYPosition;
+	newY = newYOffset + dragContext.startFrameYPosition;
+	dragContext.targetFrame.style.top = newY+'px';
+	dragContext.targetFrame.style.left = newX+'px';
+}
+
+function mouseUp(event){
+	document.getElementById('message').innerHTML='up';
+	window.removeEventListener('mousemove', mouseMoving, false);
+}
+
+function createFrame(width, height, top, left) {
+	var frame = new Object();
+	var box = createBox(width, height);
+	frame.box = box;
+	var titleBar = createTitleBar(box, width);
+	var rootPanel = createRootPanel(box, width, height);
+	frame.titleBar = titleBar;
+	titleBar.addEventListener('mousedown', frameMouseDown, false);
+	
+	frame.rootPanel = rootPanel;
+	frame.show = function(){
+		document.body.appendChild(frame.box);
+		frame.box.appendChild(frame.titleBar);
+		frame.box.appendChild(frame.rootPanel);
+	}
+	box.style.position = 'absolute';
+	box.style.top = top+'px';
+	box.style.left = left+'px';
+	return frame;
+}
+
+function onLoad(){
+	window.addEventListener('mouseup', mouseUp, false);
+	var frame = createFrame(300, 500, 10, 10);
+	frame.show();
+	
+	var frame2 = createFrame(500, 600, 100, 100);
+	frame2.show();
+}
+window.onload = onLoad;
+</script>
+</head>
+<body>
+<div id="message" style="position: absolute; top: 100px; left: 800px;"> HHHHH</div>
+</body>
+</html>
+
