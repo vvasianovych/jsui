@@ -1,0 +1,45 @@
+var moveContext = new Object();
+moveContext.startDrag    = false;
+moveContext.startMouseX  = NaN;
+moveContext.startObjectX = NaN;
+moveContext.startObjectY = NaN;
+moveContext.startMouseY  = NaN;
+moveContext.moveObject   = NaN;
+
+function mouseMove(event)
+{
+	if(!moveContext.startDrag)
+		return;
+	xOffset = event.clientX - moveContext.startMouseX;
+	yOffset = event.clientY - moveContext.startMouseY;
+	moveContext.moveObject.style.left = moveContext.startObjectX + xOffset+'px';
+	moveContext.moveObject.style.top  = moveContext.startObjectY + yOffset+'px';
+}
+
+function mouseDown(event, moveObject)
+{
+	moveContext.moveObject   = moveObject;
+	moveContext.startMouseX  = event.clientX;
+	moveContext.startMouseY  = event.clientY;
+	moveContext.startObjectX = event.currentTarget.parentElement.offsetLeft;
+	moveContext.startObjectY = event.currentTarget.parentElement.offsetTop;
+	moveContext.startDrag    = true;
+	window.addEventListener('mousemove', mouseMove, false);
+}
+function mouseUp(event)
+{
+	moveContext.moveObject  = NaN;
+	moveContext.startMouseX = NaN;
+	moveContext.startMouseY = NaN;
+	moveContext.startDrag   = false;
+	window.removeEventListener('mousemove', mouseMove, false);
+}
+
+function makeMoveable(frame)
+{
+	frame.moving = function(event)
+	{
+		mouseDown(event, frame.box);
+	}
+	frame.titleBar.addEventListener('mousedown', frame.moving, false);
+}
